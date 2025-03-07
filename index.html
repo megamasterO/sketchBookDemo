@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Demo 1</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://ignition.thecomicseries.com/files/ignitionfavicon.png"
+    />
+    <script></script>
+    <style type="text/css">
+      @font-face {
+        font-family: "press_start_2pregular";
+        src: url("https://ignition.thecomicseries.com/files/fonts/pressstart2p.woff2")
+            format("woff2"),
+          url("https://ignition.thecomicseries.com/files/fonts/pressstart2p.woff")
+            format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      * {
+        cursor: url(https://ignition.thecomicseries.com/files/navigation/cursor/ignitioncursor.png),
+          auto;
+      }
+
+      /*==============
+Preloader Screen
+================*/
+      .gif-wrapper {
+        /*need to set gif-wrapper div to 100% width and height*/
+        position: fixed;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1001;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .gif-hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      #text-wrapper {
+        /*need to set text-wrapper div to 100% width and height*/
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        z-index: 1002;
+      }
+
+      #text-expose {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .clickhere {
+        transition: 0.7s;
+      }
+
+      #loader-wrapper {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+      }
+
+      .loader-section {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #222;
+        -webkit-transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      }
+
+      .loaded {
+        transform: translateY(-100%);
+        visibility: hidden;
+      }
+
+      .textloaded {
+        transform: translateY(-200px);
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      /*==============
+Preloader Screen END
+================*/
+
+      body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        font-family: "roboto mono", monospace, sans unicode, lucida grande,
+          verdana, sans-serif;
+        letter-spacing: 0.025em;
+        line-height: auto;
+        min-height: 100vh;
+        color: #f9ebd8;
+        background-color: antiquewhite;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url(https://ignition.thecomicseries.com/files/itempattern400px.jpg);
+        background-repeat: repeat;
+        font-size: 1rem;
+        overflow-x: hidden;
+      }
+
+      #image {
+        /* width: 100%; */
+        height: 100vh;
+      }
+
+      #container {
+        background-color: red;
+        width: 100vw;
+        height: 500vh;
+      }
+
+      #static {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        pointer-events: none;
+        /* background-color: blueviolet; */
+        background-size: 200px;
+        background-image: url(https://64.media.tumblr.com/2f7e3386175259b77a361cbb6e560819/9da83a9787e463cc-a3/s2048x3072/e93d74da6f9fd94ed399b64dea8bdecf11570078.png);
+        background-repeat: repeat;
+        z-index: 10;
+        animation: shift 0.2s linear infinite both;
+        opacity: 5%;
+      }
+
+      #playmusic {
+        background-color: black;
+        border-radius: 8px;
+        padding: 0.2rem;
+        margin-top: 5px;
+        opacity: 0.5;
+        display: inline-block;
+        position: fixed;
+        left: 50%;
+        transform: translate(-50%);
+        /* width: 200px; */
+        /* height: auto; */
+        z-index: 999;
+        transition: font-size 0.2s, opacity 0.2s;
+      }
+
+      #playmusic:hover {
+        font-size: 1.05rem;
+        opacity: 0.8;
+      }
+
+      #block1 {
+        position: fixed;
+        background-color: yellow;
+        background-image: url(https://ignition.thecomicseries.com/files/aboutbackground3.gif);
+        background-repeat: no-repeat;
+        background-size: 100vw;
+        /* background-position: -20vw 0px; */
+        width: 100%;
+        height: 100%;
+      }
+
+      #logo {
+        /* background-color: blue; */
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
+      #titleBlock {
+        /* background-color: red; */
+        display: inline-block;
+        position: fixed;
+        width: fit-content;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      #ignition-logo {
+        width: 50vw;
+        animation: revealBlur linear both;
+        animation-timeline: scroll();
+        animation-range: cover 0% cover 10%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      #digitalSketchbook {
+        font-size: calc(10px + 2vw);
+        display: inline-block;
+        animation: revealBlur2 linear both;
+        animation-timeline: scroll();
+        animation-range: cover 0% cover 10%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      #background {
+        background-color: orange;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        animation: reveal0 linear both;
+        animation-timeline: scroll();
+        animation-range: cover 30% cover 50%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      #block2 {
+        /* background-color: orange; */
+        position: fixed;
+        width: 100%;
+        height: auto;
+        animation: reveal linear both;
+        animation-timeline: scroll();
+        animation-range: cover 20% cover 45%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      #block3 {
+        /* background-color: greenyellow; */
+        position: fixed;
+        width: 100%;
+        height: auto;
+        animation: reveal2 linear both;
+        animation-timeline: scroll();
+        animation-range: cover 20% cover 45%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      #block4 {
+        position: fixed;
+        width: 100%;
+        height: auto;
+        animation: reveal3 linear both;
+        animation-timeline: scroll();
+        animation-range: cover 20% cover 40%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      #block5 {
+        position: fixed;
+        width: 100%;
+        height: auto;
+        animation: reveal4 linear both;
+        animation-timeline: scroll();
+        animation-range: cover 20% cover 43%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      #block6 {
+        position: fixed;
+        width: 100%;
+        height: auto;
+        animation: reveal5 linear both;
+        animation-timeline: scroll();
+        animation-range: cover 20% cover 40%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+      #jettaText {
+        background-color: black;
+        border-radius: 0px 8px 8px 0px;
+        padding: 0.2rem;
+
+        opacity: 0.8;
+        display: inline-block;
+        position: fixed;
+        width: 50%;
+        left: 0;
+        top: 20%;
+        /* transform: translate(-50%, -50%); */
+        transition: padding 0.2s, opacity 0.2s;
+        animation: revealText linear both;
+        animation-timeline: scroll();
+        animation-range: cover 40% cover 50%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      #jettaText:hover {
+        padding: 0.4rem;
+        opacity: 0.9;
+      }
+
+      .block7 {
+        position: fixed;
+        transform-origin: 50% 1000px;
+        width: 100%;
+        height: 100%;
+        background: url("https://64.media.tumblr.com/3f24c79bae13143699d55515e6231d3e/e133bf346e310d6d-67/s2048x3072/500eb626714c3bc281920774ce37014293141efa.png");
+        background-size: auto 100vh;
+        animation: rotate linear both;
+        animation-timeline: scroll();
+        animation-range: cover 70% cover 90%;
+        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+      }
+
+      @keyframes shift {
+        0% {
+          transform: translateX(10%) translateY(5%);
+        }
+
+        100% {
+          transform: translateX(-10%) translateY(-5%);
+        }
+      }
+
+      @keyframes revealBlur {
+        0% {
+          opacity: 0;
+          transform: translateY(-60px);
+          filter: blur(40px);
+        }
+        80% {
+          opacity: 1;
+          filter: blur(0px);
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes revealBlur2 {
+        0% {
+          opacity: 0;
+
+          filter: blur(40px);
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          filter: blur(0px);
+        }
+      }
+
+      @keyframes reveal0 {
+        from {
+          opacity: 0;
+          clip-path: inset(0% 50% 0% 50%);
+        }
+        to {
+          opacity: 1;
+          clip-path: inset(0% 0% 0% 0%);
+        }
+        0% {
+          opacity: 0;
+          transform: translateY(0px);
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      @keyframes reveal {
+        /* from {
+          opacity: 0;
+          clip-path: inset(0% 45% 0% 45%);
+        }
+        to {
+          opacity: 1;
+          clip-path: inset(0% 0% 0% 0%);
+        } */
+        0% {
+          opacity: 0;
+          transform: translateY(-60px);
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes reveal2 {
+        0% {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        60% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes reveal3 {
+        0% {
+          opacity: 0;
+          transform: translateY(100px);
+        }
+        70% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes reveal4 {
+        0% {
+          opacity: 0;
+          transform: translateY(200px);
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes reveal5 {
+        0% {
+          opacity: 0;
+          transform: translateY(80px);
+          filter: blur(40px);
+        }
+        25% {
+          filter: blur(0px);
+        }
+        45% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes revealText {
+        0% {
+          opacity: 0;
+          transform: translateX(-200px);
+          filter: blur(40px);
+        }
+        25% {
+          filter: blur(0px);
+        }
+        100% {
+          opacity: 0.8;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes rotate {
+        0% {
+          opacity: 0;
+          transform: rotate(-45deg);
+          filter: blur(40px);
+        }
+        5% {
+          opacity: 1;
+        }
+        25% {
+          filter: blur(5px);
+          transform: rotate(3deg);
+        }
+        60% {
+          transform: rotate(0);
+          filter: blur(0);
+        }
+        85% {
+          /* transform: rotate(-2deg);
+          filter: blur(2px); */
+        }
+        100% {
+          /* transform: translateY(0); */
+        }
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+
+        100% {
+          transform: translate3d(-200vw, 0, 0);
+        }
+      }
+    </style>
+    <script id="dataload">
+      // function toggleMusic(){
+      //   let btn2 = document.querySelector("sticky");
+      //   btn2.dispatchEvent(new MouseEvent("click", {
+      //       view: window,
+      //       bubbles: true,
+      //       cancelable: true,
+      //   }));
+      // }
+      window.addEventListener("load", () => {
+        const gifwrapper = document.querySelector(".gif-wrapper");
+        console.log(gifwrapper);
+        gifwrapper.classList.add("gif-hidden");
+
+        gifwrapper.addEventListener("transitionend", () => {
+          gifwrapper.remove();
+          document.getElementById("text-wrapper").style.opacity = 1;
+        });
+
+        const element = document.getElementById("text-wrapper");
+        element.addEventListener("click", fadeout);
+        //function starts
+        function fadeout(event) {
+          //use currentTarget when you want to bubble up to the parent
+          var textw = event.currentTarget;
+          var loaderw = document.getElementById("loader-wrapper");
+          //play music
+          window.context = new AudioContext();
+
+          async function playAudio(url) {
+            try {
+              // note exactly sure how this is working but it's creating a butter
+              const response = await fetch(url);
+              const arrayBuffer = await response.arrayBuffer();
+              const audioBuffer = await context.decodeAudioData(arrayBuffer);
+
+              window.source = context.createBufferSource();
+              source.loop = true;
+              console.log("source", source);
+              source.buffer = audioBuffer;
+              // the next line need to be commented out because it was bypassing the filter
+              // source.connect(context.destination);
+              window.filter = context.createBiquadFilter();
+              filter.type = "lowpass";
+              filter.frequency.value = 80;
+              source.connect(filter);
+              filter.connect(context.destination);
+
+              window.addEventListener("scroll", () => {
+                const scrollPosition = window.scrollY;
+                console.log(scrollPosition);
+                if (scrollPosition > 290 && scrollPosition < 2800) {
+                  filter.frequency.value = 1000;
+                } else if (scrollPosition >= 100 && scrollPosition < 290) {
+                  filter.frequency.value = scrollPosition + 100;
+                } else {
+                  filter.frequency.value = 80;
+                }
+                // console.log(filter.frequency.value);
+              });
+
+              source.start();
+              console.log("source.stop", source.onplaying);
+
+              //some code to toggle the audio
+            } catch (error) {
+              console.error("Error playing audio:", error);
+            }
+          }
+
+          // Call function above and play music:
+          playAudio("/music/chilldrawing.mp3");
+          //end of play music
+          const loadersection = document.querySelector(".loader-section");
+          loadersection.classList.add("loaded");
+          const clickhereget = document.querySelector(".clickhere");
+          clickhereget.classList.add("textloaded");
+
+          // remove event listener
+          element.removeEventListener("click", fadeout);
+          //remove all divs that I don't need
+          loadersection.addEventListener("transitionend", () => {
+            if (loaderw !== null) {
+              loaderw.remove();
+            }
+          });
+          clickhereget.addEventListener("transitionend", () => {
+            if (textw !== null) {
+              textw.remove();
+              console.log("🚀 ~ clickhereget.addEventListener ~ textw:", textw);
+            }
+          });
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="curzr" hidden></div>
+    <!-- beginning of loader -->
+    <div class="gif-wrapper">
+      <div id="preloadergif">
+        <img
+          src="https://ignition.thecomicseries.com/files/_preloader.gif"
+          alt=""
+        />
+      </div>
+      <div class="gif-hidden"></div>
+    </div>
+    <div id="text-wrapper">
+      <div class="clickhere">click to view gallery</div>
+      <div id="text-expose"></div>
+      <div class="textloaded"></div>
+    </div>
+    <div id="loader-wrapper">
+      <div class="loader-section"></div>
+      <!-- must use class and .loaded or else it doesn't work -->
+      <div class="loaded"></div>
+    </div>
+    <!-- end of loader -->
+    <div id="container">
+      <audio id="myAudio" src="/music/chilldrawing.mp3" preload="auto"></audio>
+      <div id="playmusic" onClick="togglePlay()">play/pause</div>
+      <div class="absolute-bg"></div>
+      <div id="static"></div>
+      <div id="block1"></div>
+      <div id="logo">
+        <div id="titleBlock">
+          <img
+            src="https://ignition.thecomicseries.com/files/ignitionlogopixelwhitegear.png"
+            alt="ignition logo"
+            class="pixel-image"
+            id="ignition-logo"
+          />
+          <div id="digitalSketchbook"><b>THE DIGITAL SKETCHBOOK DEMO</b></div>
+        </div>
+      </div>
+
+      <div id="background"></div>
+      <div id="block2">
+        <img
+          id="image"
+          src="https://ignition.thecomicseries.com/files/parallax/layer4.png"
+          alt="splash art"
+        />
+      </div>
+      <div id="block3">
+        <img
+          id="image"
+          src="https://ignition.thecomicseries.com/files/parallax/layer3.png"
+          alt="splash art"
+        />
+      </div>
+      <div id="block4">
+        <img
+          id="image"
+          src="https://ignition.thecomicseries.com/files/parallax/layer2.png"
+          alt="splash art"
+        />
+      </div>
+      <div id="block5">
+        <img
+          id="image"
+          src="https://ignition.thecomicseries.com/files/parallax/layer1.png"
+          alt="splash art"
+        />
+      </div>
+      <div id="block6">
+        <div class="bg-image"></div>
+        <img
+          id="image"
+          src="https://ignition.thecomicseries.com/files/parallax/layer5.png"
+          alt="splash art"
+        />
+      </div>
+      <div id="jettaText">
+        JETTA - THE RHYTHM MECHANIC<br />The rhythm mechanic uses sound to heal
+        and fight
+      </div>
+      <div class="block7"></div>
+      <!-- <audio controls="" preload="" src="/music/chilldrawing.mp3"></audio> -->
+      <script></script>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".block7").ripples({
+          resolution: 200,
+          dropRadius: 30,
+          perturbance: 0.04,
+          // resolution: 500,
+          // dropRadius: 2,
+          // perturbance: 0.002,
+          // resolution: 1000,
+          // dropRadius: 10,
+          // perturbance: 0.003,
+        });
+      });
+
+      // var myAudio = document.getElementById("myAudio");
+      // console.log(myAudio);
+      // var isPlaying = false;
+
+      // function togglePlay() {
+      //   isPlaying ? myAudio.pause() : myAudio.play();
+      // }
+
+      // myAudio.onplaying = function () {
+      //   isPlaying = true;
+      // };
+      // myAudio.onpause = function () {
+      //   isPlaying = false;
+      // };
+
+      let isPlaying = true;
+      function togglePlay() {
+        console.log("source", source);
+        console.log("isPlaying before logic", isPlaying);
+
+        if (isPlaying == true) {
+          filter.disconnect(context.destination);
+          // source.stop();
+          isPlaying = false;
+          console.log("isPlaying", isPlaying);
+        } else {
+          isPlaying = true;
+          console.log("isPlaying when value is false", isPlaying);
+          filter.connect(context.destination);
+        }
+      }
+    </script>
+    <script>
+      class CircleAndDot {
+        constructor() {
+          this.root = document.body;
+          this.cursor = document.querySelector(".curzr");
+
+          (this.position = {
+            distanceX: 0,
+            distanceY: 0,
+            distance: 0,
+            pointerX: 0,
+            pointerY: 0,
+          }),
+            (this.previousPointerX = 0);
+          this.previousPointerY = 0;
+          this.angle = 0;
+          this.previousAngle = 0;
+          this.angleDisplace = 0;
+          this.degrees = 57.296;
+          this.cursorSize = 20;
+          this.fading = false;
+
+          this.cursorStyle = {
+            boxSizing: "border-box",
+            position: "fixed",
+            top: `${this.cursorSize / -2}px`,
+            left: `${this.cursorSize / -2}px`,
+            zIndex: "2147483647",
+            width: `${this.cursorSize}px`,
+            height: `${this.cursorSize}px`,
+            backgroundColor: "#fff0",
+            border: "1.25px solid #111920",
+            borderRadius: "50%",
+            boxShadow: "0 -15px 0 -8px #0000",
+            transition: "250ms, transform 100ms",
+            userSelect: "none",
+            pointerEvents: "none",
+          };
+
+          this.init(this.cursor, this.cursorStyle);
+        }
+
+        init(el, style) {
+          Object.assign(el.style, style);
+          this.cursor.removeAttribute("hidden");
+        }
+
+        move(event) {
+          this.previousPointerX = this.position.pointerX;
+          this.previousPointerY = this.position.pointerY;
+          this.position.pointerX =
+            event.pageX + this.root.getBoundingClientRect().x;
+          this.position.pointerY =
+            event.pageY + this.root.getBoundingClientRect().y;
+          this.position.distanceX =
+            this.previousPointerX - this.position.pointerX;
+          this.position.distanceY =
+            this.previousPointerY - this.position.pointerY;
+          this.distance = Math.sqrt(
+            this.position.distanceY ** 2 + this.position.distanceX ** 2
+          );
+
+          if (
+            event.target.localName === "button" ||
+            event.target.localName === "a" ||
+            event.target.onclick !== null ||
+            event.target.className.includes("curzr-hover")
+          ) {
+            this.hover();
+          } else {
+            this.hoverout();
+          }
+
+          this.cursor.style.transform = `translate3d(${this.position.pointerX}px, ${this.position.pointerY}px, 0)`;
+
+          this.rotate(this.position);
+          this.fade(this.distance);
+        }
+
+        rotate(position) {
+          let unsortedAngle =
+            Math.atan(
+              Math.abs(position.distanceY) / Math.abs(position.distanceX)
+            ) * this.degrees;
+          this.previousAngle = this.angle;
+
+          if (position.distanceX <= 0 && position.distanceY >= 0) {
+            this.angle = 90 - unsortedAngle + 0;
+          } else if (position.distanceX < 0 && position.distanceY < 0) {
+            this.angle = unsortedAngle + 90;
+          } else if (position.distanceX >= 0 && position.distanceY <= 0) {
+            this.angle = 90 - unsortedAngle + 180;
+          } else if (position.distanceX > 0 && position.distanceY > 0) {
+            this.angle = unsortedAngle + 270;
+          }
+
+          if (isNaN(this.angle)) {
+            this.angle = this.previousAngle;
+          } else {
+            if (this.angle - this.previousAngle <= -270) {
+              this.angleDisplace += 360 + this.angle - this.previousAngle;
+            } else if (this.angle - this.previousAngle >= 270) {
+              this.angleDisplace += this.angle - this.previousAngle - 360;
+            } else {
+              this.angleDisplace += this.angle - this.previousAngle;
+            }
+          }
+          this.cursor.style.transform += ` rotate(${this.angleDisplace}deg)`;
+        }
+
+        hover() {
+          this.cursor.style.border = "10px solid #111920";
+        }
+
+        hoverout() {
+          this.cursor.style.border = "1.25px solid #111920";
+        }
+
+        fade(distance) {
+          this.cursor.style.boxShadow = `0 ${
+            -15 - distance
+          }px 0 -8px #111920, 0 0 0 1px #F2F5F8`;
+          if (!this.fading) {
+            this.fading = true;
+            setTimeout(() => {
+              this.cursor.style.boxShadow =
+                "0 -15px 0 -8px #11192000, 0 0 0 1px #F2F5F8";
+              this.fading = false;
+            }, 50);
+          }
+        }
+
+        click() {
+          this.cursor.style.transform += ` scale(0.75)`;
+          setTimeout(() => {
+            this.cursor.style.transform = this.cursor.style.transform.replace(
+              ` scale(0.75)`,
+              ""
+            );
+          }, 35);
+        }
+
+        remove() {
+          this.cursor.remove();
+        }
+      }
+
+      (() => {
+        const cursor = new CircleAndDot();
+        if (
+          !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          )
+        ) {
+          document.onmousemove = function (event) {
+            cursor.move(event);
+          };
+          document.onclick = function () {
+            cursor.click();
+          };
+        } else {
+          cursor.remove();
+        }
+      })();
+    </script>
+  </body>
+</html>
