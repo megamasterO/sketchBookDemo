@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title>Demo 2</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -119,6 +118,8 @@ Preloader Screen END
         background-repeat: repeat;
         font-size: 1rem;
         overflow-x: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
       }
 
       #image {
@@ -132,7 +133,7 @@ Preloader Screen END
       #container {
         background-color: black;
         width: 100vw;
-        height: 500vh;
+        height: 700vh;
       }
 
       #static {
@@ -198,21 +199,55 @@ Preloader Screen END
         transform: translate(-50%, -50%);
       }
 
+      .titleContainer {
+        background-color: black;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
+      .titleContainer2 {
+        background-color: black;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
+      #foreword {
+        
+        display: inline-block;
+        position: fixed;
+        width: fit-content;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      #mmbnTitle {
+        background-color: black;
+        display: inline-block;
+        position: fixed;
+        width: fit-content;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
       #ignition-logo {
         width: 50vw;
-        animation: revealBlur linear both;
+        /* animation: revealBlur linear both;
         animation-timeline: scroll();
         animation-range: cover 0% cover 10%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
       }
 
       #digitalSketchbook {
         font-size: calc(10px + 2vw);
         display: inline-block;
-        animation: revealBlur2 linear both;
+        /* animation: revealBlur2 linear both;
         animation-timeline: scroll();
         animation-range: cover 0% cover 10%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
       }
 
       #background {
@@ -220,10 +255,11 @@ Preloader Screen END
         position: fixed;
         width: 100%;
         height: 100%;
-        animation: reveal0 linear both;
+        /* clip-path: inset(0% 50% 0% 50%); */
+        /* animation: reveal0 linear both;
         animation-timeline: scroll();
         animation-range: cover 30% cover 50%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
       }
 
       #block2 {
@@ -231,10 +267,10 @@ Preloader Screen END
         position: fixed;
         width: 100%;
         height: 100vh;
-        animation: reveal linear both;
+        /* animation: reveal linear both;
         animation-timeline: scroll();
         animation-range: cover 20% cover 45%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
       }
 
       #block3 {
@@ -242,42 +278,43 @@ Preloader Screen END
         position: fixed;
         width: 100%;
         height: 100vh;
-        animation: reveal2 linear both;
+        /* animation: reveal2 linear both;
         animation-timeline: scroll();
         animation-range: cover 20% cover 45%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
       }
 
       #block4 {
         position: fixed;
         width: 100%;
         height: 100vh;
-        animation: reveal3 linear both;
+        /* animation: reveal3 linear both;
         animation-timeline: scroll();
         animation-range: cover 20% cover 40%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
       }
 
       #block5 {
         position: fixed;
         width: 100%;
         height: 100vh;
-        animation: reveal4 linear both;
+        /* animation: reveal4 linear both;
         animation-timeline: scroll();
         animation-range: cover 20% cover 43%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
       }
 
       #block6 {
         position: fixed;
         width: 100%;
         height: 100vh;
-        animation: reveal5 linear both;
+        /* animation: reveal5 linear both;
         animation-timeline: scroll();
         animation-range: cover 20% cover 40%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
       }
-      #jettaText {
+
+      .caption {
         background-color: black;
         border-radius: 0px 8px 8px 0px;
         padding: 0.2rem;
@@ -290,10 +327,6 @@ Preloader Screen END
         top: 20%;
         /* transform: translate(-50%, -50%); */
         transition: padding 0.2s, opacity 0.2s;
-        animation: revealText linear both;
-        animation-timeline: scroll();
-        animation-range: cover 40% cover 50%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
       }
 
       #jettaText:hover {
@@ -301,19 +334,27 @@ Preloader Screen END
         opacity: 0.9;
       }
 
-      .block7 {
+      #splashArtText:hover {
+        padding: 0.4rem;
+        opacity: 0.9;
+      }
+
+      #block7 {
         position: fixed;
-        transform-origin: 50% 1000px;
         width: 100%;
         height: 100%;
-        background: url("https://64.media.tumblr.com/3f24c79bae13143699d55515e6231d3e/e133bf346e310d6d-67/s2048x3072/500eb626714c3bc281920774ce37014293141efa.png");
-        background-size: auto 100vh;
-        background-position: center 0px;
         background-color: black;
-        animation: rotate linear both;
+        /* animation: rotate linear both;
         animation-timeline: scroll();
         animation-range: cover 70% cover 90%;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
+        animation-duration: 1ms; Firefox requires this to apply the animation */
+      }
+
+      #block8 {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background-color: black;
       }
 
       @keyframes shift {
@@ -535,10 +576,10 @@ Preloader Screen END
           var loaderw = document.getElementById("loader-wrapper");
           //play music
           window.context = new AudioContext();
-
+          // comment out why I'm using async function here
           async function playAudio(url) {
             try {
-              // note exactly sure how this is working but it's creating a butter
+              // not exactly sure how this is working but it's creating a buffer
               const response = await fetch(url);
               const arrayBuffer = await response.arrayBuffer();
               const audioBuffer = await context.decodeAudioData(arrayBuffer);
@@ -554,14 +595,14 @@ Preloader Screen END
               filter.frequency.value = 80;
               source.connect(filter);
               filter.connect(context.destination);
-
+              // this tracks the scroll position and increases or decreases the audio filter
               window.addEventListener("scroll", () => {
                 const scrollPosition = window.scrollY;
                 console.log(scrollPosition);
-                if (scrollPosition > 290 && scrollPosition < 2800) {
-                  filter.frequency.value = 1000;
-                } else if (scrollPosition >= 100 && scrollPosition < 290) {
+                if (scrollPosition >= 100 && scrollPosition < 290) {
                   filter.frequency.value = scrollPosition + 100;
+                } else if (scrollPosition > 290 && scrollPosition < 2800) {
+                  filter.frequency.value = 1000;
                 } else {
                   filter.frequency.value = 80;
                 }
@@ -578,7 +619,7 @@ Preloader Screen END
           }
 
           // Call function above and play music:
-          playAudio("music/chilldrawing.mp3");
+          playAudio("/music/chilldrawing.mp3");
           //end of play music
           const loadersection = document.querySelector(".loader-section");
           loadersection.classList.add("loaded");
@@ -645,6 +686,20 @@ Preloader Screen END
         </div>
       </div>
 
+      <div class="titleContainer">
+        <div id="foreword">
+          Welcome to Siah's digital sketchbook demo.<br /><br />
+          This was a concept of creativity and curiousity. It all started with a
+          simple question: "How can I make digital artwork more engaging?".<br /><br />In
+          this demo I hope to provide a glimpse of how that can be done. By
+          combining art, music, and animation I aim to create a presentation to
+          take you on a journey through the world of the Art Masiah. Please
+          leave a comment or feedback anywhere I'm present on the internet
+          [tumblr, instagram, youtube, or my website]<br /><br />Thank you for
+          viewing!
+        </div>
+      </div>
+
       <div id="background"></div>
       <div id="block2">
         <img
@@ -682,46 +737,76 @@ Preloader Screen END
           alt="splash art"
         />
       </div>
-      <div id="jettaText">
-        JETTA - THE RHYTHM MECHANIC<br />The rhythm mechanic uses sound to heal
-        and fight
+      <div class="caption" id="jettaText">
+        JETTA - THE RHYTHM MECHANIC<br />Uses sound to heal, fight, and move
+        through life.
       </div>
-      <div class="block7"></div>
+
+      <div id="splashArt">
+        <div class="bg-image"></div>
+        <img
+          id="image"
+          src="https://ignition.thecomicseries.com/files/sketchbook/splashartsmaller.png"
+          alt="splash art"
+        />
+      </div>
+
+      <div class="caption" id="splashArtText">
+        Ignition Splash Art<br /><br />I think it's useful to create promotional
+        style artwork early on in a project to set the tone of what you're
+        working towards. I have this hanging in my room to keep me inspired and
+        working towards my vision.
+      </div>
+
+      <div id="block7">
+        <div class="bg-image"></div>
+        <img
+          id="image"
+          src="https://ignition.thecomicseries.com/files/sketchbook/conceptart.png"
+        />
+      </div>
+
+      <div class="caption" id="conceptText">
+        Since its inception, I've always thought "ignition" would be best
+        experienced as a videogame. You can see a little bit of that in the 1st
+        arc. With self-funding and help from supporters I want to make a
+        videogame demo!
+      </div>
+
+      <div class="titleContainer2">
+        <div id="mmbnTitle">
+          MMBN FAN COMIC REMIX
+        </div>
+      </div>
+
+      <div id="block8">
+        <div class="bg-image"></div>
+        <img
+          id="image"
+          src="https://64.media.tumblr.com/ee1b67b2ff701a6a0ba93e6591e194f6/0dfd585e69cabadc-2e/s2048x3072/aa8c4b22e135147bb1014b2441dcd8fc5537bff2.png"
+        />
+      </div>
       <!-- <audio controls="" preload="" src="/music/chilldrawing.mp3"></audio> -->
       <script></script>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
     <script>
-      $(document).ready(function () {
-        $(".block7").ripples({
-          resolution: 200,
-          dropRadius: 30,
-          perturbance: 0.04,
-          // resolution: 500,
-          // dropRadius: 2,
-          // perturbance: 0.002,
-          // resolution: 1000,
-          // dropRadius: 10,
-          // perturbance: 0.003,
-        });
-      });
+      // $(document).ready(function () {
+      //   $(".block7").ripples({
+      //     resolution: 200,
+      //     dropRadius: 30,
+      //     perturbance: 0.04,
+      //     // resolution: 500,
+      //     // dropRadius: 2,
+      //     // perturbance: 0.002,
+      //     // resolution: 1000,
+      //     // dropRadius: 10,
+      //     // perturbance: 0.003,
+      //   });
+      // });
 
-      // var myAudio = document.getElementById("myAudio");
-      // console.log(myAudio);
-      // var isPlaying = false;
-
-      // function togglePlay() {
-      //   isPlaying ? myAudio.pause() : myAudio.play();
-      // }
-
-      // myAudio.onplaying = function () {
-      //   isPlaying = true;
-      // };
-      // myAudio.onpause = function () {
-      //   isPlaying = false;
-      // };
-
+      // toggle music on and off
       let isPlaying = true;
       function togglePlay() {
         console.log("source", source);
@@ -739,6 +824,259 @@ Preloader Screen END
         }
       }
     </script>
+    <!-- next 2 scripts initiate gsap -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.2.3/dist/lenis.min.js"></script>
+    <script>
+      // use a script tag or an external JS file
+      document.addEventListener("DOMContentLoaded", (event) => {
+        gsap.registerPlugin(ScrollTrigger);
+        // gsap code here!
+        //first make each html element a constant
+        const ignitionLogo = document.getElementById("ignition-logo");
+        const digitalSketchbook = document.getElementById("digitalSketchbook");
+        const titleContainer = document.getElementsByClassName("titleContainer");
+        const background = document.getElementById("background");
+        const block2 = document.getElementById("block2");
+        const block3 = document.getElementById("block3");
+        const block4 = document.getElementById("block4");
+        const block5 = document.getElementById("block5");
+        const block6 = document.getElementById("block6");
+        const jettaText = document.getElementById("jettaText");
+        const splashArtText = document.getElementById("splashArtText");
+        const splashArt = document.getElementById("splashArt");
+        const block7 = document.getElementById("block7");
+        const conceptText = document.getElementById("conceptText");
+        const titleContainer2 = document.getElementsByClassName("titleContainer2");
+        const block8 = document.getElementById("block8");
+        gsap.set(ignitionLogo, { filter: "blur(40px)", opacity: 0, y: -60 });
+        gsap.to(ignitionLogo, {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 100,
+            end: 280,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(digitalSketchbook, {
+          filter: "blur(40px)",
+          opacity: 0,
+          y: 60,
+        });
+        gsap.to(digitalSketchbook, {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 100,
+            end: 280,
+            scrub: 1,
+            markers: true,
+          },
+        });
+
+        gsap.set(titleContainer, { filter: "blur(40px)", opacity: 0 });
+        gsap.to(titleContainer, {
+          filter: "blur(0px)",
+          opacity: 1,
+          scrollTrigger: {
+            start: 400,
+            end: 600,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(background, { opacity: 0, clipPath: "inset(0% 50% 0% 49%)" });
+        gsap.to(background, {
+          opacity: 1,
+          clipPath: "inset(0% 0% 0% 0%)",
+          scrollTrigger: {
+            start: 800,
+            end: 1000,
+            scrub: true,
+          },
+        });
+
+        gsap.set(block2, { opacity: 0, y: -60 });
+        gsap.to(block2, {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 800,
+            end: 1000,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(block3, { opacity: 0, y: 50 });
+        gsap.to(block3, {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 800,
+            end: 1000,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(block4, { opacity: 0, y: 100 });
+        gsap.to(block4, {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 800,
+            end: 1000,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(block5, { opacity: 0, y: 200 });
+        gsap.to(block5, {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 800,
+            end: 1000,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(block6, { filter: "blur(40px)", opacity: 0, y: 80 });
+        gsap.to(block6, {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 800,
+            end: 960,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(jettaText, { filter: "blur(40px)", opacity: 0, x: -200 });
+        gsap.to(jettaText, {
+          filter: "blur(0px)",
+          opacity: 0.8,
+          x: 0,
+          scrollTrigger: {
+            start: 960,
+            end: 1100,
+            scrub: true,
+          },
+        });
+
+        gsap.set(splashArt, {
+          filter: "blur(40px)",
+          opacity: 0,
+          y: 80,
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "#000000",
+        });
+        gsap.to(splashArt, {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 1200,
+            end: 1400,
+            scrub: 1,
+            markers: true,
+          },
+        });
+
+        gsap.set(splashArtText, {
+          filter: "blur(40px)",
+          opacity: 0,
+          x: -200,
+          top: "10%",
+        });
+        gsap.to(splashArtText, {
+          filter: "blur(0px)",
+          opacity: 1,
+          x: 0,
+          scrollTrigger: {
+            start: 1200,
+            end: 1400,
+            scrub: true,
+          },
+        });
+
+        gsap.set(block7, { filter: "blur(40px)", opacity: 0, rotate: -45 });
+        gsap.to(block7, {
+          filter: "blur(0px)",
+          opacity: 1,
+          rotate: 0,
+          scrollTrigger: {
+            start: 2000,
+            end: 2200,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(conceptText, {
+          filter: "blur(40px)",
+          opacity: 0,
+          x: -200,
+          top: "32%",
+        });
+        gsap.to(conceptText, {
+          filter: "blur(0px)",
+          opacity: 0.8,
+          x: 0,
+          scrollTrigger: {
+            start: 2300,
+            end: 2450,
+            scrub: true,
+          },
+        });
+
+        gsap.set(titleContainer2, { filter: "blur(40px)", opacity: 0 });
+        gsap.to(titleContainer2, {
+          filter: "blur(0px)",
+          opacity: 1,
+          scrollTrigger: {
+            start: 2800,
+            end: 3000,
+            scrub: 1,
+          },
+        });
+
+        gsap.set(block8, { filter: "blur(40px)", opacity: 0, y: 80 });
+        gsap.to(block8, {
+          filter: "blur(0px)",
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            start: 3400,
+            end: 3600,
+            scrub: 2,
+          },
+        });
+      });
+
+      //following code is to smooth out scrolling
+      // Initialize Lenis
+      const lenis = new Lenis({
+        autoRaf: true,
+      });
+
+      // Listen for the scroll event and log the event data
+      lenis.on("scroll", (e) => {
+        console.log(e);
+      });
+    </script>
+    <!-- <script type="module">
+      // building animation timeline
+      import "https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js";
+
+      const block1 = document.getElementById("block1");
+    </script> -->
     <script>
       class CircleAndDot {
         constructor() {
